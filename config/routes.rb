@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :vendors
+
   get 'welcome' => 'home#welcome'
   get 'design' => 'home#design'
   controller :sessions do

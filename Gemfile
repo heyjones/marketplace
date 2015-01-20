@@ -2,9 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.4'
 
-gem 'uglifier', '>= 1.3.0'
-gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier'
 gem 'jquery-rails'
+
+gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 
 group :development do
 	gem 'sqlite3'
@@ -13,12 +16,8 @@ end
 
 group :production do
 	gem 'pg'
-	gem 'unicorn'
+	gem 'activerecord-postgresql-adapter'
+	gem 'rails_12factor'
 end
 
 gem 'shopify_app'
-
-group :development, :test do
-  gem "less-rails-bootstrap"
-  gem "therubyracer", platforms: :ruby
-end

@@ -1,9 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @vendor.name %>
-</p>
+<h2><%= @vendor.name %></h2>
 
-<%= link_to 'Edit', edit_vendor_path(@vendor) %> |
-<%= link_to 'Back', vendors_path %>
+<h3>Products</h3>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Product</th>
+			<th>Shopify</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @products.each do |product| %>
+			<tr>
+				<td><%= product.title %></td>
+				<td><a href="https://shop.domain/products/<%= product.handle %>" target="_blank">Shopify</a></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

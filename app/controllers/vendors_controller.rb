@@ -1,4 +1,7 @@
 class VendorsController < ApplicationController
+
+	around_filter :shopify_session
+
   before_action :set_vendor, only: [:show, :edit, :update, :destroy]
 
   # GET /vendors
@@ -8,6 +11,7 @@ class VendorsController < ApplicationController
 
   # GET /vendors/1
   def show
+	  @products = ShopifyAPI::Product.find(:all, :params => { :limit => 250, :vendor => @vendor.name })
   end
 
   # GET /vendors/new

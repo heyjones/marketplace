@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
+	  @line_items = @order.line_items.where(:vendor_id => params[:vendor_id])
   end
 
   # GET /orders/new

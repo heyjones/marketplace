@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :orders
+  #resources :orders
 
 	root :to => 'vendors#index'
 
@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 		delete 'logout' => :destroy
 	end
 
-	resources :vendors, only: [:index, :show]
+	resources :vendors, only: [:index, :show] do
+		resources :orders, only: [:show]
+	end
 
 #  get 'welcome' => 'home#welcome'
 #  get 'design' => 'home#design'

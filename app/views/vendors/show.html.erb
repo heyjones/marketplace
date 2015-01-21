@@ -2,7 +2,26 @@
 
 <h2><%= @vendor.name %></h2>
 
-<h3>Products</h3>
+<h3>Orders</h3>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Order</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @orders.each do |order| %>
+			<tr>
+				<td><%= order.name %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<h4>
+	Products
+	<a class="btn btn-xs btn-success pull-right">Add</a>
+</h4>
 
 <table class="table table-striped">
 	<thead>

@@ -11,7 +11,14 @@ class VendorsController < ApplicationController
 
   # GET /vendors/1
   def show
-	  @products = ShopifyAPI::Product.find(:all, :params => { :limit => 250, :vendor => @vendor.name })
+	@orders = ShopifyAPI::Order.find(:all)
+	@orders.each do |order|
+		order.line_items.each do |line_item|
+			if line_item.vendor != @vendor.id
+			end
+		end
+	end
+	@products = ShopifyAPI::Product.find(:all, :params => { :limit => 250, :vendor => @vendor.name })
   end
 
   # GET /vendors/new

@@ -1,4 +1,6 @@
 class Shop < ActiveRecord::Base
+	has_many :vendors
+	has_many :orders
    def self.store(session)
     shop = Shop.new(domain: session.url, token: session.token)
      shop.save!

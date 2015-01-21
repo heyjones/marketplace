@@ -2,7 +2,7 @@ namespace :marketplace do
 
 	task vendors: :environment do
 		shops = Shop.all
-		@shops.each do |shop|
+		shops.each do |shop|
 			session = ShopifyAPI::Session.new(shop.domain, shop.token)
 			ShopifyAPI::Base.activate_session(session)
 			products = ShopifyAPI::Product.find(:all, :params => { :limit => 250, :fields => 'vendor' })
@@ -33,7 +33,11 @@ namespace :marketplace do
 				order.save
 				#line_items
 				shopifyOrder.line_items.each do |shopifyLineItem|
+					#vendor
+					vendor = Vendor.find_or_create_by(:shop_id => shop.id, :name => shopifyLineItem.vendor)
+					#line_item
 					line_item = LineItem.find_or_create_by!(:order_id => order.id, :id => shopifyLineItem.id)
+					line_item.vendor_id = vendor.id
 					line_item.name = shopifyLineItem.name
 					line_item.sku = shopifyLineItem.sku
 					line_item.quantity = shopifyLineItem.quantity

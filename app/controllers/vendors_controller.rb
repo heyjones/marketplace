@@ -11,7 +11,7 @@ class VendorsController < ApplicationController
 
   # GET /vendors/1
   def show
-	@orders = Order.all
+	@orders = Order.joins(:line_items).where('line_items.vendor_id = ?', @vendor.id).distinct
 	@products = ShopifyAPI::Product.find(:all, :params => { :limit => 250, :vendor => @vendor.name })
   end
 

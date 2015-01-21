@@ -7,12 +7,22 @@
 	<thead>
 		<tr>
 			<th>Order</th>
+			<th>Date</th>
+			<th>Customer</th>
+			<th>Fulfillment</th>
+			<th>Items</th>
+			<th class="text-right">Total</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @orders.each do |order| %>
 			<tr>
-				<td><%= order.name %></td>
+				<td><%= link_to order.name, order %></td>
+				<td><%= order.created_at %></td>
+				<td><%= [order.first_name, order.last_name].join(' ') %></td>
+				<td></td>
+				<td><%= order.line_items.sum(:quantity) %></td>
+				<td class="text-right"><%= number_to_currency(order.line_items.sum(:price)) %></td>
 			</tr>
 		<% end %>
 	</tbody>

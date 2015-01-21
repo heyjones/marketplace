@@ -1,64 +1,76 @@
-<p id="notice"><%= notice %></p>
+<h2>
+	<%= @order.name %>
+	<small class="pull-right"><%= @order.created_at %></small>
+</h2>
 
-<p>
-  <strong>Shop:</strong>
-  <%= @order.shop_id %>
-</p>
-
-<p>
-  <strong>Id:</strong>
-  <%= @order.id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @order.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @order.last_name %>
-</p>
-
-<p>
-  <strong>Address1:</strong>
-  <%= @order.address1 %>
-</p>
-
-<p>
-  <strong>Address2:</strong>
-  <%= @order.address2 %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @order.city %>
-</p>
-
-<p>
-  <strong>Province:</strong>
-  <%= @order.province %>
-</p>
-
-<p>
-  <strong>Zip:</strong>
-  <%= @order.zip %>
-</p>
-
-<p>
-  <strong>Country code:</strong>
-  <%= @order.country_code %>
-</p>
-
-<p>
-  <strong>Created at:</strong>
-  <%= @order.created_at %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<div class="row">
+	<div class="col-sm-8">
+		<h3>Line Items</h3>
+		<table class="table table-striped table-checkall">
+			<thead>
+				<tr>
+					<th style="width: 30%;">Item</th>
+					<th style="width: 30%;">SKU</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th style="width: 20%;">Fulfill</th>
+					<th style="width: 20%;"></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @order.line_items.each do |line_item| %>
+					<tr>
+						<td><%= line_item.name %></td>
+						<td><%= line_item.sku %></td>
+						<td><%= line_item.quantity %></td>
+						<td><%= number_to_currency(line_item.price) %></td>
+						<td><input type="number" class="form-control input-sm" style="text-align: center; width: auto;" min="0" max="<%= line_item.quantity %>" value="0"></td>
+						<td></td>
+						<td></td>
+					</tr>
+				<% end %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><input type="text" class="form-control input-sm" placeholder="Tracking Number"></td>
+					<td>
+						<select class="form-control input-sm">
+							<option selected disabled>Carrier</option>
+							<option value="Royal Mail">Royal Mail</option>
+							<option value="UPS">UPS</option>
+							<option value="Canada Post">Canada Post</option>
+							<option value="FedEx">FedEx</option>
+							<option value="Post Danmark">Post Danmark</option>
+							<option value="USPS">USPS</option>
+							<option value="FedEx UK">FedEx UK</option>
+							<option value="DHL">DHL</option>
+							<option value="Eagle">Eagle</option>
+							<option value="Purolator">Purolator</option>
+							<option value="TNT">TNT</option>
+							<option value="Australia Post">Australia Post</option>
+							<option value="New Zealand Post">New Zealand Post</option>
+							<option value="TNT Post">TNT Post</option>
+							<option value="Other">Carrier</option>
+						</select>
+					</td>
+					<td><a class="btn btn-sm btn-primary">Fulfill</a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<div class="col-sm-4">
+		<h3>Shipping Address</h3>
+		<address>
+			<strong><%= [@order.first_name, @order.last_name].join(' ') %></strong><br>
+			<%= @order.address1 %><br>
+			<% unless @order.address2.blank? %><%= @order.address2 %><br><% end %>
+			<%= @order.city %>, <%= @order.province_code %> <%= @order.zip %><br>
+			<%= @order.country_code %>
+		</address>
+	</div>
+</div>

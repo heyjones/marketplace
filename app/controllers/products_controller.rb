@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
 	def update
 		product = ShopifyAPI::Product.find(params[:id])
 		product.title = params[:title]
+		product.body_html = params[:body_html]
 		if product.save
 			redirect_to vendor_product_path(params[:vendor_id], params[:id])
 		else

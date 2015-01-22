@@ -1,50 +1,65 @@
-<p id="notice"><%= notice %></p>
-
 <h2><%= @vendor.name %></h2>
 
 <h3>Orders</h3>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Order</th>
-			<th>Date</th>
-			<th>Customer</th>
-			<th>Fulfillment</th>
-			<th>Items</th>
-			<th class="text-right">Total</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @orders.each do |order| %>
+<% if @orders.count == 0 %>
+	<div class="alert alert-warning" role="alert">You don't have any orders</div>
+<% else %>
+	<table class="table table-orders">
+		<thead>
 			<tr>
-				<td><%= link_to order.name, vendor_order_path(@vendor.id, order.id) %></td>
-				<td><%= order.created_at %></td>
-				<td><%= [order.first_name, order.last_name].join(' ') %></td>
-				<td></td>
-				<td><%= order.line_items.sum(:quantity) %></td>
-				<td class="text-right"><%= number_to_currency(order.line_items.sum(:price)) %></td>
+				<th>Order</th>
+				<th>Date</th>
+				<th>Customer</th>
+				<th>Fulfillment</th>
+				<th>Items</th>
+				<th class="text-right">Total</th>
 			</tr>
-		<% end %>
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			<% @orders.each do |order| %>
+				<tr>
+					<td><%= link_to order.name, vendor_order_path(@vendor.id, order.id) %></td>
+					<td style="width: 25%;"><%= order.created_at %></td>
+					<td style="width: 25%;"><%= [order.first_name, order.last_name].join(' ') %></td>
+					<td style="width: 25%;"></td>
+					<td style="width: 25%;"><%= order.line_items.sum(:quantity) %></td>
+					<td class="text-right"><%= number_to_currency(order.line_items.sum(:price)) %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
 
-<h4>
-	Products
-	<a class="btn btn-xs btn-success pull-right">Add</a>
-</h4>
-
-<table class="table table-striped">
+<h4>Products</h4>
+<table class="table table-products">
 	<thead>
 		<tr>
-			<th>Product</th>
-			<th>Shopify</th>
+			<th></th>
+			<th style="width: 50%;">Product</th>
+			<th style="width: 25%;">Inventory</th>
+			<th style="width: 25%;">Type</th>
+			<th>Sold</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @products.each do |product| %>
 			<tr>
-				<td><%= product.title %></td>
-				<td><a href="https://shop.domain/products/<%= product.handle %>" target="_blank">Shopify</a></td>
+				<td>
+					<% unless product.images.first.nil? %>
+						<img src="<%= product.images.first.src %>" class="product-image">
+					<% else %>
+						<span class="fa-stack fa-lg">
+							<i class="fa fa-square fa-stack-2x"></i>
+							<i class="fa fa-lg fa-ban fa-stack-1x fa-inverse"></i>
+						</span>
+					<% end %>
+				</td>
+				<td>
+					<%= link_to product.title, vendor_product_path(@vendor.id, product.id) %>
+				</td>
+				<td>N/A</td>
+				<td><%= product.product_type %></td>
+				<td><%= LineItem.where('line_items.product_id = ?', product.id).count %></td>
 			</tr>
 		<% end %>
 	</tbody>

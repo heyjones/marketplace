@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  #resources :orders
-
 	root :to => 'vendors#index'
 
 	controller :sessions do
@@ -13,6 +11,7 @@ Rails.application.routes.draw do
 
 	resources :vendors, only: [:index, :show] do
 		resources :orders, only: [:show]
+		resources :products, only: [:show, :update]
 	end
 
 #  get 'welcome' => 'home#welcome'

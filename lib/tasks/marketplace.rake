@@ -38,12 +38,13 @@ namespace :marketplace do
 					#line_item
 					line_item = LineItem.find_or_create_by!(:order_id => order.id, :id => shopifyLineItem.id)
 					line_item.vendor_id = vendor.id
+					line_item.product_id = shopifyLineItem.product_id
 					line_item.name = shopifyLineItem.name
 					line_item.sku = shopifyLineItem.sku
 					line_item.quantity = shopifyLineItem.quantity
 					line_item.price = shopifyLineItem.price
 					line_item.grams = shopifyLineItem.grams
-					line_item.fulfillment_status = 'null'#shopifyLineItem.fulfillment_status
+					line_item.fulfillment_status = shopifyLineItem.fulfillment_status
 					line_item.save
 				end
 			end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 	end
 
 	get '/admin' => 'admin#index'
+	post '/admin/vendor' => 'admin#vendor'
 
 	resources :vendors, only: [:index, :show] do
 		resources :orders, only: [:show]

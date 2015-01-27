@@ -16,4 +16,11 @@
 
 $(document).ready(function(){
 	
+	$('#newVendor form').on('submit', function(e){
+		e.preventDefault();
+		$.post('/admin/vendor', $(this).serialize(), function(data){
+console.log(data);
+		}, 'json');
+	});
+	
 });

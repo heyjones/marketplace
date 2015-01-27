@@ -1,4 +1,9 @@
-<h2>Vendors</h2>
+<h2>
+	Vendors
+	<button type="button" class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#newVendor">
+		New Vendor
+	</button>
+</h2>
 
 <table class="table">
 	<thead>
@@ -20,7 +25,17 @@
 				<td><span class="badge">42</span></td>
 			</tr>
 			<tr id="row<%= index %>" class="accordian-body collapse">
-				<td></td>
+				<td>
+					<% unless vendor.address1.blank? %>
+						<address>
+							<%= vendor.address1 %><br>
+							<% unless vendor.address2.blank? %><%= vendor.address2 %><br/><% end %>
+							<%= vendor.city %>, <%= vendor.province %> <%= vendor.zip %><br/>
+							<%= vendor.country %>
+						</address>
+					<% end %>
+					<%= vendor.email %>
+				</td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -29,3 +44,5 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= render 'form' %>

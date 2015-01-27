@@ -21,3 +21,4 @@ group :production do
 end
 
 gem 'shopify_app'
+gem 'shopify-api-throttle', :git => 'git://github.com/bradrees/shopify-api-throttle.git'

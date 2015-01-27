@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
     if shop_name = sanitize_shop_param(params)
       redirect_to "/auth/shopify?shop=#{shop_name}"
     else
-      redirect_to return_address
+      redirect_to '/admin'#return_address
     end
   end
   

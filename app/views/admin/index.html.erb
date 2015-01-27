@@ -1,0 +1,31 @@
+<h2>Vendors</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Vendor</th>
+			<th>Products</th>
+			<th>Sales</th>
+			<th>Profit</th>
+			<th>Open Orders</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @vendors.each_with_index do |vendor, index| %>
+			<tr>
+				<td><a data-toggle="collapse" data-target="#row<%= index %>" class="accordion-toggle"><%= vendor.name %></a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><span class="badge">42</span></td>
+			</tr>
+			<tr id="row<%= index %>" class="accordian-body collapse">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
 
-	root :to => 'vendors#index'
+	root :to => 'sessions#new'
 
 	controller :sessions do
 		get 'login' => :new
 		post 'login' => :create
 		get 'auth/shopify/callback' => :show
-		delete 'logout' => :destroy
+		#delete 'logout' => :destroy
+		get 'logout' => :destroy
 	end
+
+	get '/admin' => 'admin#index'
 
 	resources :vendors, only: [:index, :show] do
 		resources :orders, only: [:show]
@@ -15,8 +18,8 @@ Rails.application.routes.draw do
 	end
 
 #  get 'welcome' => 'home#welcome'
-#  get 'design' => 'home#design'
-#  root :to => 'home#index'
+ # get 'design' => 'home#design'
+  #root :to => 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

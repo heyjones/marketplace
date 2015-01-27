@@ -19,4 +19,5 @@
 #   end
 # end
 
-ShopifySessionRepository.storage = 'Shop'#InMemorySessionStore
+#ShopifySessionRepository.storage = InMemorySessionStore
+ShopifySessionRepository.storage = 'Shop'
